@@ -1,27 +1,28 @@
-name: Streamlit App Check
+name: Streamlit App CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run Streamlit check
+      - name: Run Streamlit App (Check)
         run: |
-          python -m streamlit run app.py --server.headless true &
-          sleep 5
+          streamlit run app.py --server.headless true &
+          sleep 10
